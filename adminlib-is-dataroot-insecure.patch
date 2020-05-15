@@ -1,0 +1,26 @@
+This patch allows to install Moodle with moodledata directory inside site's
+root.  To archive this:
+
+1. Enable security check by fetching HTTP probe.
+2. Return false from is_dataroot_insecure if check is succeeded.
+
+--- a/lib/adminlib.php	2020-05-12 15:16:49.000000000 +0300
++++ b/lib/adminlib.php	2020-05-15 15:04:19.247928045 +0300
+@@ -524,7 +524,7 @@
+  * @param bool $fetchtest try to test public access by fetching file, default false
+  * @return mixed empty means secure, INSECURE_DATAROOT_ERROR found a critical problem, INSECURE_DATAROOT_WARNING might be problematic
+  */
+-function is_dataroot_insecure($fetchtest=false) {
++function is_dataroot_insecure($fetchtest=true) {
+     global $CFG;
+ 
+     $siteroot = str_replace('\\', '/', strrev($CFG->dirroot.'/')); // win32 backslash workaround
+@@ -620,7 +620,7 @@
+         }
+     }
+ 
+-    return INSECURE_DATAROOT_WARNING;
++    return false;
+ }
+ 
+ /**
