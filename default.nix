@@ -67,7 +67,8 @@ let
       EOH
 
       echo "Patch."
-      patch -p1 <${./adminlib-is-dataroot-insecure.patch}
+      patch -p1 <${./patches/adminlib-is-dataroot-insecure.patch}
+      patch -p1 <${./patches/mysql_collation.patch}
 
       echo "Install."
       ${installCommand}
