@@ -16,15 +16,7 @@ with import nixpkgs {
 with lib;
 
 let
-  moodle-dist = fetchurl {
-    url = "https://download.moodle.org/stable38/moodle-3.8.2.tgz";
-    sha256 = "134vxsbslk7sfalmgcp744aygaxz2k080d14j8nkivk9zhplds53";
-  };
-
-  moodle-langpack-ru = fetchurl {
-    url = "https://download.moodle.org/download.php/direct/langpack/3.8/ru.zip";
-    sha256 = "1bqnmbbhdk6j89nqacch6mk7gz52qfvaiq3pzj2k8iv3y0pr3srx";
-  };
+  moodle = callPackage ./pkgs/moodle { };
 
   installCommand = builtins.concatStringsSep " " [
     "${php72}/bin/php"
@@ -57,7 +49,7 @@ let
       export PATH=${gnutar}/bin:${coreutils}/bin:${gnused}/bin:${patch}/bin:$PATH
 
       echo "Extract installer archive."
-      tar xf ${moodle-dist} --strip-components=1
+      tar xf ${moodle.dist}/tarballs/moodle-*.tar.gz
 
       echo "Generate 'moodledata/.htaccess' file."
       mkdir moodledata
@@ -65,10 +57,6 @@ let
       order deny,allow
       deny from all
       EOH
-
-      echo "Patch."
-      patch -p1 <${./patches/adminlib-is-dataroot-insecure.patch}
-      patch -p1 <${./patches/mysql_collation.patch}
 
       echo "Install."
       ${installCommand}
@@ -82,7 +70,7 @@ let
           echo "Russian language pack already installed, skipping."
       else
           mkdir -p /workdir/moodledata/lang
-          ${unzip}/bin/unzip ${moodle-langpack-ru} -d /workdir/moodledata/lang
+          ${unzip}/bin/unzip ${moodle.langpack.ru} -d /workdir/moodledata/lang
       fi
       EOF
       chmod 555 $out/bin/moodle-install.sh
