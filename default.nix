@@ -25,7 +25,7 @@ let
     "--agree-license"
     "--lang=ru"
     "--dataroot=/workdir/moodledata"
-    "--wwwroot=http://\"$DOMAIN_NAME\""
+    "--wwwroot=$PROTOCOL://\"$DOMAIN_NAME\""
     "--dbtype=mariadb"
     "--dbhost=\"$DB_HOST\""
     "--dbname=\"$DB_NAME\""
