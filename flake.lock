@@ -252,11 +252,11 @@
         "nixpkgs-unstable": "nixpkgs-unstable_2"
       },
       "locked": {
-        "lastModified": 1622464205,
-        "narHash": "sha256-q2NRvK40FzKjrE6Ut5n01dDIEfM2JitQxmHWMLEVb74=",
-        "ref": "master",
-        "rev": "233ffbd8eb85e17e6c94b8dc98e63cd40207db5a",
-        "revCount": 870,
+        "lastModified": 1622474734,
+        "narHash": "sha256-d7/cz71JX1uifCtD5UmK8xVU/kgF+vHK+n9xTWcN55k=",
+        "ref": "tests-cms",
+        "rev": "f577fc0c3251f99d2ba62a4913d8fd7bd701330c",
+        "revCount": 871,
         "type": "git",
         "url": "https://gitlab.intr/_ci/nixpkgs"
       },
