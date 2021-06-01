@@ -272,11 +272,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1622473674,
-        "narHash": "sha256-yDXYl9bq6qHay5YNsTqEi5VaU59ricUBzXofaoB9Mw8=",
+        "lastModified": 1622553259,
+        "narHash": "sha256-oFRlJt252AhnPpG2ZIN+lO02VED0/9ek2GSgr8zDMSM=",
         "ref": "master",
-        "rev": "cfc53cbddf29f895a17df800f832be627f3cc5e7",
-        "revCount": 2,
+        "rev": "e6f7a758757d01a56324088d3aa34058521fac17",
+        "revCount": 5,
         "type": "git",
         "url": "https://gitlab.intr/apps/moodle-language.git"
       },
