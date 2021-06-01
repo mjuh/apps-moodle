@@ -76,8 +76,8 @@
                   })
                   ((with self.packages.${system}.container; ''
                     #!${runtimeShell} -e
-                    echo ${docker}/bin/docker load --input ${out}
-                    echo ${docker}/bin/docker push ${imageName}:${imageTag}
+                    ${docker}/bin/docker load --input ${out}
+                    ${docker}/bin/docker push ${imageName}:${imageTag}
                   ''));
               };
             };
