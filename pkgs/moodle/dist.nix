@@ -5,7 +5,6 @@ stdenv.mkDerivation rec {
   pname = "moodle";
   patches = [
     ./patches/adminlib-is-dataroot-insecure.patch
-    ./patches/mysql_collation.patch
   ];
   dontFixup = true;
   installPhase = ''
