@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , writeScript
 
 , moodle
@@ -10,7 +11,8 @@
 , gnused
 , gzip
 , patch
-, php }:
+, php
+, unzip }:
 
 let
   installCommand = builtins.concatStringsSep " " [
@@ -36,11 +38,19 @@ in stdenv.mkDerivation {
   name = "moodle-install";
   src = false;
   dontUnpack = true;
-  checkPhase = if (moodle.version == moodle-language-pack-ru.version)
-               then
-                 false
-               else
-                 abort "moodle version doesn't match moodle-language-pack-ru version";
+  checkPhase =
+    let
+      moodle-version = lib.versions.majorMinor moodle.version;
+      moodle-language-pack-ru-version = with lib;
+        let
+          list = splitString "/" (head moodle-language-pack-ru.urls);
+        in elemAt list (length list - 2);
+    in
+      if moodle-version == moodle-language-pack-ru-version
+      then
+        false
+      else
+        abort "moodle ${moodle-version} version doesn't match moodle-language-pack-ru version ${moodle-language-pack-ru-version}";
   builder = writeScript "builder.sh" (''
     source $stdenv/setup
     mkdir -p $out/bin
@@ -65,7 +75,7 @@ in stdenv.mkDerivation {
         echo "Russian language pack already installed, skipping."
     else
         mkdir -p /workdir/moodledata/lang
-        ${gnutar}/bin/tar -xzf ${moodle-language-pack-ru} -C /workdir/moodledata
+        ${unzip}/bin/unzip ${moodle-language-pack-ru} -d /workdir/moodledata
     fi
 
     echo "Install."

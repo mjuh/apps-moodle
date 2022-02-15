@@ -46,7 +46,12 @@
         with nixpkgs.legacyPackages.${system}; {
           packages.${system} = {
             moodle = (callPackage ./pkgs/moodle { }).dist;
-            moodle-language-pack-ru = moodle-language.packages.${system}.moodle-language-pack-ru;
+            moodle-language-pack-ru =
+              callPackage ({ fetchurl }:
+                fetchurl {
+                  url = "https://download.moodle.org/download.php/direct/langpack/3.11/ru.zip";
+                  sha256 = "sha256-LTl3DTKiC38j3ddJlFI6BXfWRB4+WeAr8m/ifnolIHU=";
+                }) {};
             entrypoint = callPackage ./pkgs/entrypoint {
               inherit (self.packages.${system}) moodle moodle-language-pack-ru;
               php = majordomo.packages.${system}.php73;
