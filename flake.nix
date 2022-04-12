@@ -61,26 +61,6 @@
             type = "app";
             program = "${self.packages.${system}.moodle-vm-test-run-moodle-mariadb-nix-upstream}/bin/nixos-run-vms";
           };
-          deploy.nodes.jenkins = {
-            sshUser = "jenkins";
-            autoRollback = false;
-            magicRollback = false;
-            hostname = "jenkins.intr";
-            profiles = with nixpkgs.legacyPackages.${system}; {
-              moodle = {
-                path = deploy-rs.lib.${system}.activate.custom
-                  (symlinkJoin {
-                    name = "profile";
-                    paths = [];
-                  })
-                  ((with self.packages.${system}.container; ''
-                    #!${runtimeShell} -e
-                    ${docker}/bin/docker load --input ${out}
-                    ${docker}/bin/docker push ${imageName}:${imageTag}
-                  ''));
-              };
-            };
-          };
         }
     );
 }

@@ -1,1 +1,1 @@
-deployRS(deploy: true, scanPasswords: true, gc: false)
+buildWebService(flake: true)
