@@ -1,21 +1,15 @@
 {
   description = "Docker container with Moodle build by Nix";
 
-  nixConfig = {
-    substituters = [ "https://cache.nixos.intr/" ];
-    trustedPublicKeys = [ "cache.nixos.intr:6VD7bofl5zZFTEwsIDsUypprsgl7r9I+7OGY4WsubFA=" ];
-  };
-
   inputs = {
     deploy-rs.url = "github:serokell/deploy-rs";
     flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
     flake-utils.url = "github:numtide/flake-utils";
     majordomo.url = "git+https://gitlab.intr/_ci/nixpkgs";
     containerImageApache.url = "git+https://gitlab.intr/webservices/apache2-php73.git";
-    moodle-language.url = "git+https://gitlab.intr/apps/moodle-language.git";
   };
 
-  outputs = { self, flake-utils, nixpkgs, majordomo, deploy-rs, moodle-language, ... } @ inputs:
+  outputs = { self, flake-utils, nixpkgs, majordomo, deploy-rs,... } @ inputs:
     flake-utils.lib.eachDefaultSystem (system: {
       devShell = with nixpkgs.legacyPackages."${system}"; mkShell {
         buildInputs = [
@@ -50,7 +44,7 @@
               callPackage ({ fetchurl }:
                 fetchurl {
                   url = "https://download.moodle.org/download.php/direct/langpack/3.11/ru.zip";
-                  sha256 = "sha256-LTl3DTKiC38j3ddJlFI6BXfWRB4+WeAr8m/ifnolIHU=";
+                  sha256 = "sha256-vimZPwPr0jsycWs3f67Wn9i2MDxLyxoozXgGgMTE760=";
                 }) {};
             entrypoint = callPackage ./pkgs/entrypoint {
               inherit (self.packages.${system}) moodle moodle-language-pack-ru;

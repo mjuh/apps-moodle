@@ -75,7 +75,7 @@ in stdenv.mkDerivation {
         echo "Russian language pack already installed, skipping."
     else
         mkdir -p /workdir/moodledata/lang
-        ${unzip}/bin/unzip ${moodle-language-pack-ru} -d /workdir/moodledata
+        ${unzip}/bin/unzip ${moodle-language-pack-ru} -d /workdir/moodledata/lang/
     fi
 
     echo "Install."
