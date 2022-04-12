@@ -44,7 +44,7 @@
               callPackage ({ fetchurl }:
                 fetchurl {
                   url = "https://download.moodle.org/download.php/direct/langpack/3.11/ru.zip";
-                  sha256 = "sha256-vimZPwPr0jsycWs3f67Wn9i2MDxLyxoozXgGgMTE760=";
+                  sha256 = "sha256-iOYhPbMQAMsi4g3I8tvTD2msbxK2axKHdT1kYITi35U=";
                 }) {};
             entrypoint = callPackage ./pkgs/entrypoint {
               inherit (self.packages.${system}) moodle moodle-language-pack-ru;
